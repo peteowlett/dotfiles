@@ -1,4 +1,79 @@
-syntax on
+set nocompatible
+set rtp+=~/.vim/bundle/Vundle.vim
 
-" Wrap gitcommit file types at the appropriate length
-filetype indent plugin on
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'sjl/vitality.vim'
+Plugin 'jpalardy/vim-slime'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'morhetz/gruvbox'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'bling/vim-airline'
+Plugin 'mileszs/ack.vim'
+call vundle#end()
+
+syntax on
+filetype plugin indent on
+
+"colorscheme jellybeans
+colorscheme gruvbox
+"colorscheme space-vim-dark
+highlight LineNr ctermfg=grey
+
+set laststatus=2
+set number
+set updatetime=250
+set tabstop=4
+set shiftwidth=4
+set autoindent
+set expandtab
+set fillchars+=stl:\ ,stlnc:\
+set nowrap
+set ruler
+set noswapfile
+
+set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+set wildmenu  " Enables tab completion on :e
+
+
+" Remap leader key
+map <space> <leader>
+
+"Config Slime
+let g:slime_target = "tmux"
+
+"Config Easymotion
+map <Leader> <Plug>(easymotion-prefix)
+
+" Set the vertical bar to highlight 100th character in python PEP8
+set colorcolumn=100
+highlight ColorColumn ctermbg=8
+
+" Open new split panes to right and bottom, which feels more natural
+set splitbelow
+set splitright
+
+" Highlight trailing whitespace
+:highlight ExtraWhitespace ctermbg=red guibg=red
+:match ExtraWhitespace /\s\+$/
+
+" Insert a newline without entering insert mode
+nnoremap <Leader>O O<Esc>
+nnoremap <Leader>o o<Esc>
+
+" Yank to clipboard
+noremap <leader>y "*y
+
+" Search
+set incsearch
+set hlsearch
+nnoremap h :nohl<CR>
+
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+" Settings for netrw
+let g:netrw_liststyle = 3
+let g:netrw_banner = 0
+a
