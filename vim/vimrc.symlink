@@ -1,5 +1,6 @@
 set nocompatible
 set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=/usr/local/opt/fzf
 
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
@@ -10,6 +11,7 @@ Plugin 'morhetz/gruvbox'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'bling/vim-airline'
 Plugin 'mileszs/ack.vim'
+Plugin 'junegunn/fzf.vim'
 call vundle#end()
 
 syntax on
@@ -31,10 +33,9 @@ set fillchars+=stl:\ ,stlnc:\
 set nowrap
 set ruler
 set noswapfile
-
 set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 set wildmenu  " Enables tab completion on :e
-
+set hidden
 
 " Remap leader key
 map <space> <leader>
@@ -44,6 +45,13 @@ let g:slime_target = "tmux"
 
 "Config Easymotion
 map <Leader> <Plug>(easymotion-prefix)
+
+" Configure Buffers with Airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+nmap <leader>l :bnext<CR>
+nmap <leader>h :bprevious<CR>
+nmap <leader>q :bp <BAR> bd #<CR>
 
 " Set the vertical bar to highlight 100th character in python PEP8
 set colorcolumn=100
