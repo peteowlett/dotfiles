@@ -5,3 +5,4 @@
 	email = pete@deliveroo.co.uk
 [core]
 	editor = /usr/bin/vim
+	pager = less
