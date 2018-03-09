@@ -69,6 +69,7 @@ set colorcolumn=100
 highlight ColorColumn ctermbg=8
 
 " Open new split panes to right and bottom, which feels more natural
+noremap <leader>v :vsplit<CR>
 set splitbelow
 set splitright
 
@@ -87,6 +88,7 @@ noremap <leader>y "*y
 set incsearch
 set hlsearch
 nnoremap <leader>h :nohl<CR>
+noremap <leader>F :Ack<space>
 
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
@@ -95,3 +97,8 @@ endif
 " Settings for netrw
 let g:netrw_liststyle = 3
 let g:netrw_banner = 0
+
+
+" Undos
+set undodir=$HOME/.vim/undo
+set undofile
