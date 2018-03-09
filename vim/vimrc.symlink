@@ -42,6 +42,9 @@ set hidden
 " Remap leader key
 map <space> <leader>
 
+" Remap jj for exiting insert mode
+inoremap jj <ESC>
+
 "Config Slime
 let g:slime_target = "tmux"
 
