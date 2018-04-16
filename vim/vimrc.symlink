@@ -14,6 +14,7 @@ Plugin 'mileszs/ack.vim'
 Plugin 'junegunn/fzf.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
+Plugin 'scrooloose/nerdcommenter'
 call vundle#end()
 
 syntax on
@@ -52,8 +53,8 @@ let g:slime_target = "tmux"
 map <Leader> <Plug>(easymotion-prefix)
 
 "configure gitgutter highlighting
-nnoremap <Leader>g :GitGutterLineHighlightsToggle<Enter>
-autocmd BufEnter * :GitGutterLineHighlightsEnable
+"nnoremap <Leader>g :GitGutterLineHighlightsToggle<Enter>
+"autocmd BufEnter * :GitGutterLineHighlightsEnable
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 
@@ -65,7 +66,7 @@ nmap <leader>m :bprevious<CR>
 nmap <leader>q :bp <BAR> bd #<CR>
 
 " Set the vertical bar to highlight 100th character in python PEP8
-set colorcolumn=100
+set colorcolumn=80
 highlight ColorColumn ctermbg=8
 
 " Open new split panes to right and bottom, which feels more natural
@@ -98,6 +99,8 @@ endif
 let g:netrw_liststyle = 3
 let g:netrw_banner = 0
 
+" R indenting
+let r_indent_align_args = 0
 
 " Undos
 set undodir=$HOME/.vim/undo
