@@ -6,3 +6,4 @@
 [core]
 	editor = /usr/bin/vim
 	pager = less
+	excludesfile = /Users/pete/.gitignore
