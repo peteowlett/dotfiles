@@ -1,7 +1,5 @@
 set nocompatible
 set rtp+=~/.vim/bundle/Vundle.vim
-set rtp+=/usr/local/opt/fzf
-
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'sjl/vitality.vim'
@@ -15,15 +13,25 @@ Plugin 'junegunn/fzf.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'tpope/vim-vinegar'
+Plugin 'drewtempelmeyer/palenight.vim'
+Plugin 'mhinz/vim-startify'
 call vundle#end()
+
+set rtp+=/usr/local/opt/fzf
 
 syntax on
 filetype plugin indent on
 
-colorscheme jellybeans
+set background=dark
+colorscheme palenight
+"colorscheme jellybeans
 "colorscheme gruvbox
 "colorscheme space-vim-dark
-highlight LineNr ctermfg=grey
+"highlight LineNr ctermfg=grey
+if (has("termguicolors"))
+  set termguicolors
+endif
 
 set laststatus=2
 set number
@@ -52,8 +60,11 @@ let g:slime_target = "tmux"
 "Config Easymotion
 map <Leader> <Plug>(easymotion-prefix)
 
+"Config FZF
+noremap <leader>p :FZF<CR>
+
 "configure gitgutter highlighting
-"nnoremap <Leader>g :GitGutterLineHighlightsToggle<Enter>
+nnoremap <Leader>g :GitGutterLineHighlightsToggle<Enter>
 "autocmd BufEnter * :GitGutterLineHighlightsEnable
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
@@ -95,13 +106,20 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
-" Settings for netrw
-let g:netrw_liststyle = 3
-let g:netrw_banner = 0
-
 " R indenting
 let r_indent_align_args = 0
 
 " Undos
 set undodir=$HOME/.vim/undo
 set undofile
+
+set tags+=tags;/
+
+" Run current SQL file through bigquery
+nnoremap <leader>q :!cat % <bar> bq query<CR>
+
+" Run python file in local pipenv
+nnoremap <leader>r :!pipenv run python %<CR>
+
+" Open quickfix window after Ggrep
+autocmd QuickFixCmdPost *grep* cwindow

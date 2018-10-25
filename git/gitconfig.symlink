@@ -2,8 +2,8 @@
 [user]
 # Please adapt and uncomment the following lines:
 	name = Peter Owlett
-	email = pete@deliveroo.co.uk
+	email = peteowlett@gmail.com
 [core]
 	editor = /usr/bin/vim
 	pager = less
-	excludesfile = /Users/pete/.gitignore
+	excludesfile = /Users/pete/.gitignore_global

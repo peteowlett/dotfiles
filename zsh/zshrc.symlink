@@ -2,14 +2,19 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/pete/.oh-my-zsh
+export ZSH="/Users/pete/.oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
-#ZSH_THEME="theunraveler"
-#ZSH_THEME="af-magic"
+
+# Set list of themes to load
+# Setting this variable when ZSH_THEME=random
+# cause zsh load theme from this variable instead of
+# looking in ~/.oh-my-zsh/themes/
+# An empty array have no effect
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -53,17 +58,16 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-it-on  wd python pip)
+plugins=(
+  git
+  wd
+)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
-export PATH=/usr/local/bin:$PATH
-export ARCHFLAGS="-arch x86_64"
-test -f ~/.bashrc && source ~/.bashrc
-test -f ~/.env && source ~/.env
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -86,7 +90,62 @@ test -f ~/.env && source ~/.env
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+#
 
-# added by travis gem
-[ -f /Users/pete/.travis/travis.sh ] && source /Users/pete/.travis/travis.sh
+# Initialise pyenv
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Devel
+###source /usr/local/bin/virtualenvwrapper.sh
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
+export PATH=$PATH:/Users/pete/Library/Python/2.7/bin
+export NVM_DIR="$HOME/.nvm"
+. "/usr/local/opt/nvm/nvm.sh"
+export THIMBLE_SETTINGS=/Users/pete/coding/thread-flat-thimble/config/thimble-local
+export PYTHONPATH=$PYTHONPATH:/Users/pete/coding/thread-flat-thimble/
+export PYTHONPATH=$PYTHONPATH:/Users/pete/coding/styleme/
+
+# Source secrets
+source ~/.secrets
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/pete/static/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/pete/static/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/pete/static/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/pete/static/google-cloud-sdk/completion.zsh.inc'; fi
+
+# SSH connections
+alias kobo="ssh -L 63333:localhost:5432 kobo.adm.thread.com"
+alias koboshell="psql -d styleme -h localhost -p 63333 -U styleme"
+
+# FZF config
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_TMUX=1
+
+# Set working directory
+cd ~/coding
+
+# Rust config
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# Watchdog alias
+alias watchdog="watchmedo tricks-from tricks.yaml"
+
+# Asana aliases
+alias ts="asana ts"# Asana aliasealias ts="asana ts"# Asana aliasealias ts="asana ts"
+
+# Simulated Picking - Manual Setup
+export PRIVATE_KEY=~/.ssh/peteowlett.pem
+export STYLEME_DIR=~/coding/styleme
+export THIMBLE_DIR=~/coding/thread-flat-thimble
+
+# CTAG refresh shortcut
+alias update-tags="ctags -R --fields=+l --languages=python --python-kinds=-iv"
+
+# How i roll
+alias ll="ls -lthra"
