@@ -123,3 +123,8 @@ nnoremap <leader>r :!pipenv run python %<CR>
 
 " Open quickfix window after Ggrep
 autocmd QuickFixCmdPost *grep* cwindow
+
+" Folding
+set foldcolumn=4
+set foldmethod=indent
+nnoremap <leader>c :set foldcolumn&<CR>

@@ -98,6 +98,7 @@ source $ZSH/oh-my-zsh.sh
 # Initialise pyenv
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
 
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
@@ -119,10 +120,6 @@ if [ -f '/Users/pete/static/google-cloud-sdk/path.zsh.inc' ]; then source '/User
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/pete/static/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/pete/static/google-cloud-sdk/completion.zsh.inc'; fi
 
-# SSH connections
-alias kobo="ssh -L 63333:localhost:5432 kobo.adm.thread.com"
-alias koboshell="psql -d styleme -h localhost -p 63333 -U styleme"
-
 # FZF config
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_TMUX=1
@@ -139,13 +136,9 @@ alias watchdog="watchmedo tricks-from tricks.yaml"
 # Asana aliases
 alias ts="asana ts"# Asana aliasealias ts="asana ts"# Asana aliasealias ts="asana ts"
 
-# Simulated Picking - Manual Setup
-export PRIVATE_KEY=~/.ssh/peteowlett.pem
-export STYLEME_DIR=~/coding/styleme
-export THIMBLE_DIR=~/coding/thread-flat-thimble
-
 # CTAG refresh shortcut
 alias update-tags="ctags -R --fields=+l --languages=python --python-kinds=-iv"
 
 # How i roll
 alias ll="ls -lthra"
+
