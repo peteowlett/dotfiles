@@ -16,6 +16,11 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'tpope/vim-vinegar'
 Plugin 'drewtempelmeyer/palenight.vim'
 Plugin 'mhinz/vim-startify'
+Plugin 'majutsushi/tagbar'
+Plugin 'inside/vim-search-pulse'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'ervandew/supertab'
+Plugin 'rizzatti/dash.vim'
 call vundle#end()
 
 set rtp+=/usr/local/opt/fzf
@@ -23,8 +28,11 @@ set rtp+=/usr/local/opt/fzf
 syntax on
 filetype plugin indent on
 
+"Colours
+colorscheme iceberg
+set t_Co=256
 set background=dark
-colorscheme palenight
+"colorscheme palenight
 "colorscheme jellybeans
 "colorscheme gruvbox
 "colorscheme space-vim-dark
@@ -32,7 +40,10 @@ colorscheme palenight
 if (has("termguicolors"))
   set termguicolors
 endif
+"hi Visual  gui=NONE guifg=#000000 guibg=#41FF00
+"hi Search gui=NONE guifg=black guibg=blue
 
+"Settings
 set laststatus=2
 set number
 set updatetime=250
@@ -64,7 +75,7 @@ map <Leader> <Plug>(easymotion-prefix)
 noremap <leader>p :FZF<CR>
 
 "configure gitgutter highlighting
-nnoremap <Leader>g :GitGutterLineHighlightsToggle<Enter>
+nnoremap <c-g> :GitGutterLineHighlightsToggle<Enter>
 "autocmd BufEnter * :GitGutterLineHighlightsEnable
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
@@ -113,11 +124,13 @@ let r_indent_align_args = 0
 set undodir=$HOME/.vim/undo
 set undofile
 
+" Tags
 set tags+=tags;/
+nmap <F8> :TagbarToggle<CR>
 
 " Run current SQL file through bigquery
 nnoremap <leader>q :!cat % <bar> bq query<CR>
-
+"
 " Run python file in local pipenv
 nnoremap <leader>r :!pipenv run python %<CR>
 
@@ -125,6 +138,10 @@ nnoremap <leader>r :!pipenv run python %<CR>
 autocmd QuickFixCmdPost *grep* cwindow
 
 " Folding
-set foldcolumn=4
 set foldmethod=indent
-nnoremap <leader>c :set foldcolumn&<CR>
+
+" Allow backspace to delete text
+set backspace=indent,eol,start
+
+" Jedi config
+let g:jedi#use_splits_not_buffers = "right"

@@ -61,6 +61,9 @@ ZSH_THEME="robbyrussell"
 plugins=(
   git
   wd
+  vi-mode
+  zsh-syntax-highlighting
+  zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -106,10 +109,13 @@ export PROJECT_HOME=$HOME/Devel
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
 export PATH=$PATH:/Users/pete/Library/Python/2.7/bin
 export NVM_DIR="$HOME/.nvm"
-. "/usr/local/opt/nvm/nvm.sh"
+#. "/usr/local/opt/nvm/nvm.sh"
 export THIMBLE_SETTINGS=/Users/pete/coding/thread-flat-thimble/config/thimble-local
 export PYTHONPATH=$PYTHONPATH:/Users/pete/coding/thread-flat-thimble/
 export PYTHONPATH=$PYTHONPATH:/Users/pete/coding/styleme/
+
+# Fix vim colours
+export TERM=xterm-256color
 
 # Source secrets
 source ~/.secrets
@@ -123,9 +129,6 @@ if [ -f '/Users/pete/static/google-cloud-sdk/completion.zsh.inc' ]; then source 
 # FZF config
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_TMUX=1
-
-# Set working directory
-cd ~/coding
 
 # Rust config
 export PATH="$HOME/.cargo/bin:$PATH"
