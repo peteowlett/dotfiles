@@ -18,9 +18,11 @@ Plugin 'drewtempelmeyer/palenight.vim'
 Plugin 'mhinz/vim-startify'
 Plugin 'majutsushi/tagbar'
 Plugin 'inside/vim-search-pulse'
-Plugin 'davidhalter/jedi-vim'
+"Plugin 'davidhalter/jedi-vim'
 Plugin 'ervandew/supertab'
 Plugin 'rizzatti/dash.vim'
+Plugin 'arcticicestudio/nord-vim'
+Plugin 'ambv/black'
 call vundle#end()
 
 set rtp+=/usr/local/opt/fzf
@@ -29,7 +31,8 @@ syntax on
 filetype plugin indent on
 
 "Colours
-colorscheme iceberg
+colorscheme nord
+"colorscheme iceberg
 set t_Co=256
 set background=dark
 "colorscheme palenight
@@ -42,6 +45,8 @@ if (has("termguicolors"))
 endif
 "hi Visual  gui=NONE guifg=#000000 guibg=#41FF00
 "hi Search gui=NONE guifg=black guibg=blue
+hi Comment guifg=#a67ca6
+hi Comment cterm=italic
 
 "Settings
 set laststatus=2
@@ -67,6 +72,7 @@ inoremap jj <ESC>
 
 "Config Slime
 let g:slime_target = "tmux"
+let g:slime_python_ipython = 1
 
 "Config Easymotion
 map <Leader> <Plug>(easymotion-prefix)

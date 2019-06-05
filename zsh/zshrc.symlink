@@ -7,7 +7,8 @@ export ZSH="/Users/pete/.oh-my-zsh"
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="spaceship"
+#ZSH_THEME="robbyrussell"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -75,6 +76,7 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
+export EDITOR='vim'
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
@@ -117,6 +119,17 @@ export PYTHONPATH=$PYTHONPATH:/Users/pete/coding/styleme/
 # Fix vim colours
 export TERM=xterm-256color
 
+
+# Configure spaceship
+SPACESHIP_VI_MODE_COLOR="blue"
+SPACESHIP_VENV_SHOW=false
+SPACESHIP_KUBECONTEXT_SHOW=false
+SPACESHIP_EXIT_CODE_SHOW=true
+SPACESHIP_TIME_SHOW=true
+SPACESHIP_TIME_PREFIX=''
+SPACESHIP_TIME_SUFFIX=' '
+SPACESHIP_TIME_COLOR='yellow'
+
 # Source secrets
 source ~/.secrets
 
@@ -145,3 +158,15 @@ alias update-tags="ctags -R --fields=+l --languages=python --python-kinds=-iv"
 # How i roll
 alias ll="ls -lthra"
 
+# tmuxinator
+source ~/.config/tmuxinator/tmuxinator.zsh
+alias mux="tmuxinator"
+
+# AWS Vault
+function aws-shell-session() {
+  # Make sure we can run this even inside an already logged in shell.
+  unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN AWS_SECURITY_TOKEN AWS_VAULT
+  profile="${1:?Specify profile to use}"  # Exit early
+  AWS_ASSUME_ROLE_TTL=1h aws_env=$(aws-vault exec "$profile" -- env | grep AWS_ | awk '{ print "export "$1; }')
+  eval "$aws_env"
+}

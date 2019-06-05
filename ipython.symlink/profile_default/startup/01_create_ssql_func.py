@@ -1,6 +1,9 @@
 import os
 import pandas
-from google.cloud import bigquery
+try:
+    from google.cloud import bigquery
+except:
+    print("Failed to load bigquery")
 
 def get_bigquery(user_query):
     client = bigquery.Client()
