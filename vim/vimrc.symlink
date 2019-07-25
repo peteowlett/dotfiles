@@ -23,6 +23,7 @@ Plugin 'ervandew/supertab'
 Plugin 'rizzatti/dash.vim'
 Plugin 'arcticicestudio/nord-vim'
 Plugin 'ambv/black'
+Plugin 'scrooloose/nerdtree'
 call vundle#end()
 
 set rtp+=/usr/local/opt/fzf
@@ -151,3 +152,40 @@ set backspace=indent,eol,start
 
 " Jedi config
 let g:jedi#use_splits_not_buffers = "right"
+
+command! -complete=file -nargs=* BQ call s:RunShellCommand('eval "$(pyenv init -)" && pyenv shell 2.7.15 && bq query '.<q-args>)
+
+" TODO: If no visual selection, run whole file
+" TODO: Auto escape strings in query
+" TODO: Really need both substitution commands?
+" TODO: Clean up query printing in results page
+" TODO: Remove need to hit enter to show results
+" TODO: Parse shortcut for vertical vs horizontal results
+" TODO: Allow multiple queries at once, pop up multiple windows
+" TODO: Add function to get table schemas by name
+" TODO: Add function to list tables by dataset
+function! ExecuteBigquery() range
+    let n = @n
+    silent! normal gv"ny
+    let bq_query = substitute(@n, '\n', ' ', 'g')
+    echom bq_query
+    let bq_command = 'eval "$(pyenv init -)" && pyenv shell 2.7.15 && bq query "'
+    let bq_command .= bq_query
+    let bq_command = substitute(bq_command, '\n', '', 'g')
+    let bq_command .= '"'
+    let bq_command = substitute(bq_command, '\n', '', 'g')
+    botright new
+    setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+    call setline(1, 'Executed Query:    ' . @n)
+    execute '$read !'. bq_command
+    setlocal nomodifiable
+    1
+
+    let @n = n
+    " bonus: restores the visual selection
+    normal! gv
+endfunction
+xnoremap <leader>l :call ExecuteBigquery()<CR>
+
+
+map <C-n> :NERDTreeToggle<CR>

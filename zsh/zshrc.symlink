@@ -111,7 +111,7 @@ export PROJECT_HOME=$HOME/Devel
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
 export PATH=$PATH:/Users/pete/Library/Python/2.7/bin
 export NVM_DIR="$HOME/.nvm"
-#. "/usr/local/opt/nvm/nvm.sh"
+. "/usr/local/opt/nvm/nvm.sh"
 export THIMBLE_SETTINGS=/Users/pete/coding/thread-flat-thimble/config/thimble-local
 export PYTHONPATH=$PYTHONPATH:/Users/pete/coding/thread-flat-thimble/
 export PYTHONPATH=$PYTHONPATH:/Users/pete/coding/styleme/
@@ -170,3 +170,6 @@ function aws-shell-session() {
   AWS_ASSUME_ROLE_TTL=1h aws_env=$(aws-vault exec "$profile" -- env | grep AWS_ | awk '{ print "export "$1; }')
   eval "$aws_env"
 }
+
+# Hub
+eval "$(hub alias -s)"
