@@ -67,6 +67,8 @@ set hidden
 
 " Remap leader key
 map <space> <leader>
+"let mapleader = <space>
+"let maplocalleader = "\\"
 
 " Remap jj for exiting insert mode
 inoremap jj <ESC>
@@ -133,13 +135,13 @@ set undofile
 
 " Tags
 set tags+=tags;/
-nmap <F8> :TagbarToggle<CR>
+nnoremap <C-t> :TagbarToggle<CR>
 
 " Run current SQL file through bigquery
-nnoremap <leader>q :!cat % <bar> bq query<CR>
+"nnoremap <leader>q :!cat % <bar> bq query<CR>
 "
 " Run python file in local pipenv
-nnoremap <leader>r :!pipenv run python %<CR>
+"nnoremap <leader>r :!pipenv run python %<CR>
 
 " Open quickfix window after Ggrep
 autocmd QuickFixCmdPost *grep* cwindow
@@ -164,7 +166,7 @@ command! -complete=file -nargs=* BQ call s:RunShellCommand('eval "$(pyenv init -
 " TODO: Allow multiple queries at once, pop up multiple windows
 " TODO: Add function to get table schemas by name
 " TODO: Add function to list tables by dataset
-function! ExecuteBigquery() range
+function! ExecuteBigquerySelection() range
     let n = @n
     silent! normal gv"ny
     let bq_query = substitute(@n, '\n', ' ', 'g')
@@ -185,7 +187,54 @@ function! ExecuteBigquery() range
     " bonus: restores the visual selection
     normal! gv
 endfunction
-xnoremap <leader>l :call ExecuteBigquery()<CR>
+
+function! ExecuteBigqueryFile()
+    " Read the whole file, replacing newlines with a single space
+    let bq_query = shellescape(join(getline(1, '$'), " "))
+    " Escape bangs (used in NOT EQUAL statements)
+    let bq_query = substitute(bq_query, '!', '\\!', 'g')
+    let bq_command = 'eval "$(pyenv init -)" && pyenv shell 2.7.15 && bq query ' . bq_query
+    botright new
+    setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+    call setline(1, 'Executed Query:    ' . bq_query)
+    execute '$read !'. bq_command
+    setlocal nomodifiable
+    1
+endfunction
+
+function! BiqueryLS(ls_string)
+    let ls_command = 'eval "$(pyenv init -)" && pyenv shell 2.7.15 && bq ls -n 1000 ' . a:ls_string
+    botright 60vsplit new
+    setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+    execute '$read !'. ls_command
+    setlocal nomodifiable
+    1
+endfunction
+
+function! BiqueryShow(show_string)
+    let show_command = 'eval "$(pyenv init -)" && pyenv shell 2.7.15 && bq show --format=prettyjson ' . a:show_string
+    botright 80vsplit new
+    setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+    execute '$read !'. show_command
+    setlocal nomodifiable
+    1
+endfunction
+
+xnoremap <leader>l :call ExecuteBigquerySelection()<CR>
+noremap ll :call ExecuteBigqueryFile()<CR>
+command! -nargs=* Bqls :call BiqueryLS(<q-args>)
+command! -nargs=* Bqshow :call BiqueryShow(<q-args>)
 
 
-map <C-n> :NERDTreeToggle<CR>
+" Nerdtree again. Will i love it this time? Probably not
+" I really want a file VIEWER not a selector. Maybe a
+" TMUX command to open ranger?
+noremap <C-n> <esc>:NERDTreeToggle<CR>
+
+" horizontal scroll for bigquery table outputs
+nnoremap <C-L> 20zl " Scroll 20 characters to the right
+nnoremap <C-H> 20zh " Scroll 20 characters to the left
+
+" Fast vimrc editing
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>

@@ -9,8 +9,8 @@ def get_bigquery(user_query):
     client = bigquery.Client()
     query_job = client.query(user_query)
     results = query_job.result()
-    # return results.to_dataframe(progress_bar_type='tqdm')
-    return results.to_dataframe()
+    return results.to_dataframe(progress_bar_type='tqdm')
+    # return results.to_dataframe()
 
 def get_kobo(user_query):
     try:

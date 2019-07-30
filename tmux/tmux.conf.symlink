@@ -1,4 +1,19 @@
-set -g default-terminal "screen-256color"
+###################################################################
+# General
+###################################################################
+
+
+#set -g default-terminal "screen-256color"
+# Appropriate terminal colors
+set -g default-terminal "xterm-256color"
+set -ga terminal-overrides ",xterm-256color:Tc"
+
+
+# Renumber windows when a window is closed
+set -g renumber-windows on
+
+# mouse? real hackers don't use a mouse
+set-option -g mouse off
 
 # panes
 set -g pane-border-fg black
@@ -43,7 +58,7 @@ set-option -g visual-silence off
 set-window-option -g monitor-activity off
 set-option -g bell-action none
 
-set -g default-terminal "screen-256color"
+#set -g default-terminal "screen-256color"
 
 # The modes {
 setw -g clock-mode-colour colour135

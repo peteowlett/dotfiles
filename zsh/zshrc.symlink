@@ -173,3 +173,6 @@ function aws-shell-session() {
 
 # Hub
 eval "$(hub alias -s)"
+
+# Luigi
+export LUIGI_CONFIG_PATH=/Users/pete/coding/thread-flat-thimble/luigi.cfg
