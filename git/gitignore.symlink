@@ -3,3 +3,7 @@
 *.swp
 *.sqlite
 Pipfile
+local_data
+
+credentials.env
+*.csv

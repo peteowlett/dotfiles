@@ -65,6 +65,7 @@ plugins=(
   vi-mode
   zsh-syntax-highlighting
   zsh-autosuggestions
+  poetry
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -110,8 +111,8 @@ export PROJECT_HOME=$HOME/Devel
 ###source /usr/local/bin/virtualenvwrapper.sh
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
 export PATH=$PATH:/Users/pete/Library/Python/2.7/bin
-export NVM_DIR="$HOME/.nvm"
-. "/usr/local/opt/nvm/nvm.sh"
+#export NVM_DIR="$HOME/.nvm"
+#. "/usr/local/opt/nvm/nvm.sh"
 export THIMBLE_SETTINGS=/Users/pete/coding/thread-flat-thimble/config/thimble-local
 export PYTHONPATH=$PYTHONPATH:/Users/pete/coding/thread-flat-thimble/
 export PYTHONPATH=$PYTHONPATH:/Users/pete/coding/styleme/
@@ -159,8 +160,8 @@ alias update-tags="ctags -R --fields=+l --languages=python --python-kinds=-iv"
 alias ll="ls -lthra"
 
 # tmuxinator
-source ~/.config/tmuxinator/tmuxinator.zsh
-alias mux="tmuxinator"
+#source ~/.config/tmuxinator/tmuxinator.zsh
+#alias mux="tmuxinator"
 
 # AWS Vault
 function aws-shell-session() {
@@ -176,3 +177,13 @@ eval "$(hub alias -s)"
 
 # Luigi
 export LUIGI_CONFIG_PATH=/Users/pete/coding/thread-flat-thimble/luigi.cfg
+export PATH="/usr/local/sbin:$PATH"
+export TERM=xterm-256color-it
+
+#Source Bother Secrets
+source ~/.secrets-bother
+
+export PATH="$HOME/.poetry/bin:$PATH"
+
+
+export ENV="DEV"
